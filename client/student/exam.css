@@ -1,0 +1,117 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #121212; /* Dark background color */
+  color: #fff; /* Light text color */
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #333; /* Dark container background color */
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* Light shadow */
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #fff; /* Light text color */
+}
+
+h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  display: inline; /* Ensure the question and time display are inline */
+  color: #fff; /* Light text color */
+}
+
+.question-section {
+  margin-bottom: 20px;
+  border: 2px solid #007bff; /* Blue border color */
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  align-items: center; /* Align items vertically */
+  justify-content: space-between; /* Put space between items */
+  background-color: #444; /* Darker background color */
+}
+
+.timer {
+  font-size: 16px; /* Reduced font size */
+  border: 2px solid #ff0000; /* Red border color */
+  border-radius: 8px;
+  padding: 10px;
+  color: #fff; /* Light text color */
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 5px;
+}
+
+.btn-container {
+  text-align: center;
+  margin-top: 10px; /* Add margin between options and buttons */
+  display: flex; /* Use flexbox layout */
+  justify-content: flex-start; /* Align items to the left */
+}
+
+.reset-btn {
+  font-size: 14px; /* Smaller font size */
+  color: #ff0000; /* Red color */
+  text-decoration: underline; /* Underline */
+  cursor: pointer;
+  border: none;
+  background-color: transparent; /* Transparent background */
+  margin-right: 10px; /* Add margin between buttons */
+  color: #fff; /* Light text color */
+}
+
+.reset-btn:focus {
+  outline: none;
+}
+
+.btn-container button {
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 10px;
+  color: #fff; /* Light text color */
+}
+
+.btn-container button:focus {
+  outline: none;
+}
+
+.btn-container button#prevBtn {
+  background-color: #007bff;
+}
+
+.btn-container button#nextBtn {
+  background-color: #28a745;
+}
+
+/* Style for Submit Quiz button */
+.submit-btn {
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  background-color: #28a745; /* Green background color */
+  color: #fff; /* White text color */
+  margin-top: 20px; /* Add margin from other buttons */
+  align-self: center; /* Center the button horizontally */
+}

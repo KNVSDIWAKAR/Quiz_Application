@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exam Instructions</title>
+<!-- Add your CSS stylesheets here -->
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: black;
+    color: white;
+  }
+
+  .container {
+    max-width: 600px;
+    padding: 20px;
+    background-color: black;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add box shadow */
+  }
+
+  .flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .text-2xl {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+
+  .underline {
+    text-decoration: underline;
+  }
+
+  .font-bold {
+    font-weight: bold;
+  }
+
+  .primary-outlined-btn, .primary-contained-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  .primary-outlined-btn {
+    border: 2px solid #007bff;
+    color: #007bff;
+    background-color: transparent;
+  }
+
+  .primary-outlined-btn:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  .primary-contained-btn {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  .primary-contained-btn:hover {
+    background-color: #0056b3;
+  }
+
+  /* Adjust alignment of list items */
+  ul {
+    padding: 0;
+    margin: 0;
+    /* Remove list-style-type to keep unordered list dot symbol */
+    text-align: left;
+  }
+
+  li {
+    margin-bottom: 5px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="flex">
+    <h1 class="text-2xl underline">Instructions</h1>
+    <ul>
+      <li>Exam must be completed in <span id="examDuration"></span> seconds.</li>
+      <li>Exam will be submitted automatically after <span id="examDuration"></span> seconds.</li>
+      <li>Once submitted, you cannot change your answers.</li>
+      <li>Do not refresh the page.</li>
+      <li>You can use the <span class="font-bold">"Previous"</span> and <span class="font-bold">"Next"</span> buttons to navigate between questions.</li>
+      <li>Total marks of the exam is <span id="totalMarks"></span>.</li>
+      <li>Passing marks of the exam is <span id="passingMarks"></span>.</li>
+    </ul>
+    <div class="flex gap-2">
+      <button class="primary-outlined-btn" onclick="closeInstructions()">CLOSE</button>
+      <button class="primary-contained-btn" onclick="startExam()">Start Exam</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add your JavaScript scripts here -->
+<script>
+  // Dummy data for demonstration purposes
+  const examData = {
+    duration: 1800, // 30 minutes in seconds
+    totalMarks: 100,
+    passingMarks: 60
+  };
+
+  function closeInstructions() {
+    // Implement logic to close the instructions modal or navigate to another page
+    // For example:
+    window.location.href = "quiz.html";
+  }
+
+  function startExam() {
+    // Implement logic to start the exam
+    // For example:
+    alert("Exam started!");
+    window.location.href = "exam.html";
+  }
+
+  // Populate exam data
+  document.getElementById("examDuration").textContent = examData.duration;
+  document.getElementById("totalMarks").textContent = examData.totalMarks;
+  document.getElementById("passingMarks").textContent = examData.passingMarks;
+</script>
+</body>
+</html>

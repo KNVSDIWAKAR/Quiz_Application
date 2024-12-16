@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create a Quiz</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #121212; /* Dark background color */
+        color: #fff; /* Light text color */
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #333; /* Darker background color */
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        text-align: center;
+      }
+
+      .quiz-title {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .quiz-name {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #666; /* Darker border color */
+        border-radius: 4px;
+        box-sizing: border-box;
+        background-image: url("quiz_bg.jpg");
+        background-size: cover;
+        color: #ccc; /* Lighter text color */
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #666; /* Darker border color */
+        border-radius: 4px;
+        box-sizing: border-box;
+        background-color: #444; /* Darker background color */
+        color: #ccc; /* Lighter text color */
+      }
+
+      .btn {
+        border: none;
+        border-radius: 4px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s; /* Add transition for smooth effect */
+      }
+
+      .btn:hover {
+        filter: brightness(90%);
+      }
+
+      .btn-blue {
+        background-color: #007bff; /* Blue button color */
+        color: #fff;
+      }
+
+      .btn-submit {
+        background-color: #28a745; /* Green button color */
+        color: #fff;
+        float: right; /* Align the button to the right */
+      }
+
+      /* Style for the Home button */
+      .btn-home {
+        background-color: #6c757d; /* Button color */
+        color: #fff;
+        margin-right: 10px;
+      }
+
+      .btn-home:hover {
+        background-color: #5a6268; /* Darker button color on hover */
+      }
+
+      /* Center align the quiz code */
+      .quiz-code {
+        text-align: center;
+        margin-top: 20px; /* Add some top margin for spacing */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Create a Quiz</h2>
+      <div class="quiz-title">
+        <input
+          type="text"
+          id="quiz-name"
+          class="quiz-name"
+          placeholder="Name of the Quiz"
+        />
+      </div>
+      <div id="new-quiz">
+        <div class="form-group">
+          <label for="question">Question:</label>
+          <textarea
+            id="question"
+            name="question"
+            rows="4"
+            style="background-image: url('quiz_bg.jpg'); background-size: cover"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="option1">Option 1:</label>
+          <input type="text" id="option1" name="option1" />
+        </div>
+        <div class="form-group">
+          <label for="option2">Option 2:</label>
+          <input type="text" id="option2" name="option2" />
+        </div>
+        <div class="form-group">
+          <label for="option3">Option 3:</label>
+          <input type="text" id="option3" name="option3" />
+        </div>
+        <div class="form-group">
+          <label for="option4">Option 4:</label>
+          <input type="text" id="option4" name="option4" />
+        </div>
+        <div class="form-group">
+          <label for="correct-answer">Correct Answer:</label>
+          <select id="correct-answer" name="correct-answer">
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+            <option value="option4">Option 4</option>
+          </select>
+        </div>
+        <button class="btn btn-blue" onclick="addQuestion()">
+          Add Question
+        </button>
+        <!-- <button class="btn btn-blue" onclick="generateQuizCode()">
+          Generate Quiz Code
+        </button> -->
+        <div id="quiz-code" class="quiz-code"></div>
+      </div>
+    </div>
+
+    <div class="btn-container">
+      <button class="btn btn-home" onclick="redirectToHome()">Home</button>
+      <button class="btn btn-submit" onclick="submitQuiz()">Save Quiz</button>
+    </div>
+
+    <script>
+      document
+        .getElementById("quiz-name")
+        .addEventListener("input", function () {
+          var quizNameInput = document.getElementById("quiz-name");
+          if (quizNameInput.value.trim() !== "") {
+            quizNameInput.style.color = "#000";
+          } else {
+            quizNameInput.style.color = "#ccc"; /* Lighter text color */
+          }
+        });
+
+      // Function to reset form fields
+      function resetFormFields() {
+        document.getElementById("question").value = "";
+        document.getElementById("option1").value = "";
+        document.getElementById("option2").value = "";
+        document.getElementById("option3").value = "";
+        document.getElementById("option4").value = "";
+        document.getElementById("correct-answer").selectedIndex = 0;
+      }
+
+      function addQuestion() {
+        // Fetch question, options, and correct answer
+        var question = document.getElementById("question").value;
+        var option1 = document.getElementById("option1").value;
+        var option2 = document.getElementById("option2").value;
+        var option3 = document.getElementById("option3").value;
+        var option4 = document.getElementById("option4").value;
+        var correctAnswer = document.getElementById("correct-answer").value;
+
+        var data = {
+          question,
+          options: [option1, option2, option3, option4],
+          correctAnswer,
+        };
+
+        fetch("/api/add-question", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => {
+            if (response.ok) {
+              alert("Question added successfully!");
+              resetFormFields(); // Reset form fields after successful addition
+            } else {
+              throw new Error("Failed to add question");
+            }
+          })
+          .catch((error) => {
+            console.error("Error adding question:", error);
+            alert("Failed to add question");
+          });
+      }
+
+      function submitQuiz() {
+        alert("Quiz saved successfully!");
+        window.location.href = "index.html";
+      }
+
+      function redirectToHome() {
+        window.location.href = "index.html";
+      }
+    </script>
+  </body>
+</html>

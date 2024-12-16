@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Available Courses</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: black;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      background-color: black;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .course {
+      width: 100%;
+      padding: 20px;
+      margin: 10px;
+      border-radius: 8px;
+      text-align: center;
+      max-height: 200px;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .course:nth-child(odd) {
+      background-color: #5a6268;
+      background: linear-gradient(to right, #5bc5b2, #dc9d28);
+    }
+
+    .course:nth-child(even) {
+      background-color: #6c757d;
+      background: linear-gradient(to right, #42047e, #07f49e);
+    }
+
+    .add-course-btn {
+      padding: 8px 16px;
+      margin-top: 10px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .add-course-btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Style for the Home button */
+    .home-btn {
+      padding: 12px 25px;
+      margin-top: 10px;
+      background-color: white;
+      color: black;
+      border: none;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 18px;
+    }
+
+    .home-btn:hover {
+      background-color: #5a6268;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="course">
+      <h2>Web Development</h2>
+      <button class="add-course-btn" onclick="showAlert()">Add Course</button>
+    </div>
+    <div class="course">
+      <h2>Full Stack</h2>
+      <button class="add-course-btn" onclick="showAlert()">Add Course</button>
+    </div>
+    <div class="course">
+      <h2>Mern Stack</h2>
+      <button class="add-course-btn" onclick="showAlert()">Add Course</button>
+    </div>
+    <div class="course">
+      <h2>Data Structures And Algorithms</h2>
+      <button class="add-course-btn" onclick="showAlert()">Add Course</button>
+    </div>
+    <div class="course">
+      <h2>Database Systems</h2>
+      <button class="add-course-btn" onclick="showAlert()">Add Course</button>
+    </div>
+    <div class="course">
+      <h2>Object Oriented Programing Language</h2>
+      <button class="add-course-btn" onclick="showAlert()">Add Course</button>
+    </div>
+    <!-- Home button -->
+    <button class="home-btn" onclick="redirectToHome()">Home</button>
+  </div>
+
+  <script>
+    function showAlert() {
+      alert("Course added successfully");
+    }
+
+    function redirectToHome() {
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App Animation</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: #f0f0f0;
+        font-family: "Poppins", sans-serif;
+      }
+      .animation-container {
+        display: flex;
+        align-items: center;
+        font-size: 48px;
+      }
+      .letter {
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="animation-container">
+      <span class="letter">Q</span>
+      <span class="letter">U</span>
+      <span class="letter">I</span>
+      <span class="letter">Z</span>
+      <span class="letter"> </span>
+      <span class="letter">A</span>
+      <span class="letter">P</span>
+      <span class="letter">P</span>
+    </div>
+
+    <script>
+      const letters = document.querySelectorAll(".letter");
+      letters.forEach((letter, index) => {
+        setTimeout(() => {
+          letter.style.animationDelay = `${index * 0.2}s`;
+        }, 1000);
+      });
+    </script>
+  </body>
+</html> -->

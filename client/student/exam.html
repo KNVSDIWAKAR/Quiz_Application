@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exam</title>
+    <link rel="stylesheet" href="exam.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Exam</h1>
+      <div id="questionContainer" class="question-section">
+        <h3 id="questionText"></h3>
+        <div class="timer">Time Remaining: <span id="timer">15:00</span></div>
+      </div>
+      <ul id="optionsContainer"></ul>
+      <div class="btn-container">
+        <button id="resetBtn" class="reset-btn" onclick="resetOptions()">
+          Reset Options
+        </button>
+        <button id="prevBtn" onclick="prevQuestion()">Previous</button>
+        <button id="nextBtn" onclick="nextQuestion()">Next</button>
+      </div>
+      <!-- Submit Quiz button -->
+      <button class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>
+    </div>
+
+    <script>
+      let questions = [];
+      let userAnswers = new Map(); // Store user answers
+
+      function fetchQuestions() {
+        fetch("/api/questions") // Assuming your backend API endpoint to fetch questions is '/api/questions'
+          .then((response) => response.json())
+          .then((data) => {
+            questions = data; // Assign all questions from the database
+            shuffleQuestions(); // Shuffle the questions array
+            displayQuestion(5); // Display the first question
+          })
+          .catch((error) => console.error("Error fetching questions:", error));
+      }
+
+      function shuffleQuestions() {
+        for (let i = questions.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [questions[i], questions[j]] = [questions[j], questions[i]];
+        }
+      }
+
+      function displayQuestion(questionIndex) {
+        const question = questions[questionIndex];
+        const questionText = document.getElementById("questionText");
+        const timerDisplay = document.getElementById("timer");
+        const optionsContainer = document.getElementById("optionsContainer");
+
+        questionText.textContent = question.question;
+        timerDisplay.textContent = "15:00"; // Reset timer display
+        optionsContainer.innerHTML = question.options
+          .map(
+            (option, index) => `
+    <li><input type="radio" name="option" value="${index}" onchange="saveAnswer(${questionIndex}, ${index})">${option}</li>
+  `
+          )
+          .join("");
+      }
+
+      function resetOptions() {
+        const options = document.querySelectorAll("input[type='radio']");
+        options.forEach((option) => (option.checked = false));
+        userAnswers.clear(); // Clear user answers
+      }
+
+      function prevQuestion() {
+        const currentQuestionIndex = questions.indexOf(
+          questions.find(
+            (question) =>
+              question.question ===
+              document.getElementById("questionText").textContent
+          )
+        );
+        if (currentQuestionIndex > 0) {
+          displayQuestion(currentQuestionIndex - 1);
+        }
+      }
+
+      function nextQuestion() {
+        const currentQuestionIndex = questions.indexOf(
+          questions.find(
+            (question) =>
+              question.question ===
+              document.getElementById("questionText").textContent
+          )
+        );
+        if (currentQuestionIndex < questions.length - 1) {
+          displayQuestion(currentQuestionIndex + 1);
+          if (currentQuestionIndex + 1 === questions.length - 1) {
+            alert(
+              "You have reached the last question. Click Submit to finish the quiz."
+            );
+          }
+        }
+      }
+
+      function saveAnswer(questionIndex, answerIndex) {
+        userAnswers.set(questionIndex, answerIndex); // Save the user's answer
+      }
+
+      function submitQuiz() {
+        // Here you can use userAnswers map to get the user's marked answers
+        alert("Quiz submitted successfully!");
+        // Redirect to the reports page with the user's answers
+        const params = new URLSearchParams(userAnswers);
+        window.location.href = `report.html?${params.toString()}`;
+      }
+
+      let timer = 15 * 60;
+      setInterval(() => {
+        const timerDisplay = document.getElementById("timer");
+        const minutes = Math.floor(timer / 60);
+        const seconds = timer % 60;
+        timerDisplay.textContent = `${minutes
+          .toString()
+          .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+        if (timer > 0) timer--;
+      }, 1000);
+
+      fetchQuestions();
+    </script>
+  </body>
+</html>

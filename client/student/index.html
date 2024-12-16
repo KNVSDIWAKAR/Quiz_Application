@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      perspective: 1000px;
+      background-color: #232323;
+      font-family: Arial, sans-serif;
+      color: #fff;
+      background-image: url("background.png");
+      background-size: cover;
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 100vh;
+      flex-direction: row;
+      gap: 100px;
+    }
+
+    .sidebar {
+      width: 300px;
+      height: 250px;
+      background-color: rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    header {
+      margin-left: 20px;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    header, #content {
+      padding: 20px;
+    }
+
+    .hero-section-image {
+      width: 40%;
+      border-radius: 50px;
+    }
+
+    .button button {
+      font-size: 18px;
+      padding: 10px 0;
+      width: 250px;
+      margin-bottom: 20px;
+      animation: bounce 1s ease infinite alternate;
+      transition: background-color 0.2s;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #fff;
+      background-color: #3caea3;
+    }
+
+    .button button:hover {
+      background-color: #88cbba;
+    }
+
+    @keyframes bounce {
+      to {
+        transform: translateY(-5px);
+      }
+    }
+
+    #profileBtn {
+      position: absolute;
+      top: 40px;
+      right: 20px;
+      height: 60px;
+      width: 70px;
+      border-radius: 20%;
+      transition: transform 0.2s;
+    }
+
+    #profileBtn:hover {
+      transform: scale(1.1);
+    }
+
+    @media only screen and (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .sidebar {
+        width: 80%;
+        margin-bottom: 20px;
+      }
+
+      .hero-section-image {
+        width: 80%;
+      }
+    }
+
+    #timerDisplay {
+      font-size: 36px;
+      font-weight: bold;
+      margin-top: 20px;
+      color: #3caea3;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+  </style>
+</head>
+<body>
+  <div id="content">
+    <header>
+      <h1>Student Dashboard</h1>
+      <nav>
+        <ul>
+          <li><span id="timerDisplay"></span></li>
+          <li><img src="profile.jpeg" alt="Profile Logo" id="profileBtn"></li>
+          <li><a href="#" id="logoutBtn">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+      
+    <!-- Content will be loaded dynamically here -->
+  </div>
+
+  <div class="container">
+    <img class="hero-section-image" src="hero-section-image-png.png">
+    <aside class="sidebar">
+      <div class="button">
+        <a href="quiz.html"><button id="quizBtn">Quiz</button></a>
+      </div>
+      <div class="button">
+        <a href="report.html"><button id="reportsBtn">Reports</button></a>
+      </div>
+    </aside>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    function updateTimer() {
+      var seconds = 120;
+      var timerDisplay = document.getElementById("timerDisplay");
+
+      var timerInterval = setInterval(function() {
+        var minutes = Math.floor(seconds / 60);
+        var remainingSeconds = seconds % 60;
+
+        timerDisplay.textContent = minutes + ":" + (remainingSeconds < 10 ? "0" : "") + remainingSeconds;
+
+        if (seconds <= 30) {
+          timerDisplay.style.color = "red";
+        }
+
+        if (seconds <= 0) {
+          clearInterval(timerInterval);
+          alert("Your session has timed out. Please log in again.");
+          window.location.href = "../Welcome_Page.html";
+        } else {
+          seconds--;
+        }
+      }, 1000);
+    }
+
+    updateTimer();
+
+    document.getElementById("profileBtn").addEventListener("click", function() {
+      window.location.href = "profile.html";
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", function() {
+      window.location.href = "../Welcome_Page.html";
+    });
+  </script>
+</body>
+</html>

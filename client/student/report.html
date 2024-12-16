@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exam Report</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .answer-item {
+        margin-bottom: 10px;
+      }
+
+      .answer-item span {
+        font-weight: bold;
+        margin-right: 5px;
+      }
+
+      .correct-answer {
+        color: green;
+        font-weight: bold;
+      }
+
+      .wrong-answer {
+        color: red;
+        font-weight: bold;
+      }
+
+      .menu-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #007bff;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      .menu-link:hover {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Exam Report</h1>
+      <div id="answersContainer"></div>
+      <button id="returnHomeBtn" class="menu-link">Back to Menu</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      // Function to parse URL parameters
+      function getUrlParams() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return Object.fromEntries(urlParams.entries());
+      }
+
+      // Function to fetch correct answers from the backend
+      async function fetchCorrectAnswers() {
+        try {
+          const response = await fetch("/api/questions"); // Fetch correct answers from your backend
+          const data = await response.json();
+          return data.correctAnswers; // Assuming correct answers are provided in the format { questionIndex: correctAnswerIndex }
+        } catch (error) {
+          console.error("Error fetching correct answers:", error);
+          return null;
+        }
+      }
+
+      // Function to render user's answers with correct or wrong indication
+      async function renderAnswers() {
+        const answersContainer = document.getElementById("answersContainer");
+        const userAnswers = getUrlParams();
+
+        if (Object.keys(userAnswers).length === 0) {
+          answersContainer.innerHTML = "<p>No answers found.</p>";
+          return;
+        }
+
+        const answersList = document.createElement("ul");
+        answersList.classList.add("answers-list");
+
+        const correctAnswers = await fetchCorrectAnswers(); // Fetch correct answers
+
+        if (!correctAnswers) {
+          answersContainer.innerHTML = "<p>Error fetching correct answers.</p>";
+          return;
+        }
+
+        for (const questionIndex in userAnswers) {
+          const questionNumber = parseInt(questionIndex) + 1;
+          const answerIndex = parseInt(userAnswers[questionIndex]);
+          const isCorrect = correctAnswers[questionIndex] === answerIndex;
+
+          const answerItem = document.createElement("li");
+          answerItem.classList.add("answer-item");
+          const answerText = `Question ${questionNumber}: Option ${
+            answerIndex + 1
+          }`;
+          answerItem.innerHTML = `<span>${answerText}</span>`;
+
+          if (isCorrect) {
+            answerItem.classList.add("correct-answer");
+            answerItem.innerHTML += " (Correct)";
+          } else {
+            answerItem.classList.add("wrong-answer");
+            answerItem.innerHTML += " (Wrong)";
+          }
+
+          answersList.appendChild(answerItem);
+        }
+
+        answersContainer.appendChild(answersList);
+      }
+
+      // Click event for the menu button
+      $(document).ready(function () {
+        $("#returnHomeBtn").click(function () {
+          window.location.href = "index.html"; // Redirect to home page
+        });
+      });
+
+      window.addEventListener("DOMContentLoaded", renderAnswers);
+    </script>
+  </body>
+</html>

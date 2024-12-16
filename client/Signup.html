@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sign Up</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="Signup.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Sign Up</h2>
+      <form id="signupForm">
+        <label for="username">Username (Max 20 characters)</label>
+        <input
+          type="text"
+          id="username"
+          placeholder="Enter username"
+          maxlength="20"
+          required
+          autocomplete="off"
+        />
+
+        <label for="password">Password (8-20 characters)</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter password"
+          minlength="8"
+          maxlength="20"
+          required
+          autocomplete="off"
+        />
+
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Enter email"
+          required
+          autocomplete="off"
+        />
+
+        <label for="mobile">Mobile Number</label>
+        <input
+          type="tel"
+          id="mobile"
+          placeholder="Enter mobile number"
+          pattern="[0-9]{10}"
+          required
+          autocomplete="off"
+        />
+
+        <label for="graduationYear">Year of Graduation </label>
+        <input
+          type="text"
+          id="graduationYear"
+          placeholder="Enter year of graduation"
+          pattern="[0-9]{4}"
+          minlength="4"
+          maxlength="4"
+          required
+          autocomplete="off"
+        />
+
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" required autocomplete="off" />
+
+        <!-- <label for="role">Role </label>
+        <input type="radio" name="role"value="student" checked/>Student
+        <input type="radio" name="role"value="faculty"/>Faculty -->
+
+        <button type="submit">Sign Up</button>
+
+        <br />
+        <div style="margin-top: 10px; text-align: center">
+          Have an account?
+          <a style="color: green" href="./Login.html">Login</a>
+        </div>
+      </form>
+
+      <div class="Home">
+        <a href="./Welcome_Page.html">Home</a>
+      </div>
+    </div>
+
+    <script>
+      const signupForm = document.querySelector("#signupForm");
+
+      signupForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const username = document.querySelector("#username").value;
+        const password = document.querySelector("#password").value;
+        const mobile = document.querySelector("#mobile").value;
+        const email = document.querySelector("#email").value;
+        const graduationYear = document.querySelector("#graduationYear").value;
+        const dob = document.querySelector("#dob").value;
+        // const role = document.querySelector('#role').value;
+
+        console.log("Username:", username);
+        console.log("Password:", password);
+        console.log("Mobile Number:", mobile);
+        console.log("Email:", email);
+        console.log("Year of Graduation:", graduationYear);
+        console.log("Date of Birth:", dob);
+        // console.log("Role: ",role);
+
+        alert("Sign Up Successful!");
+      });
+    </script>
+
+    <!-- Youtube  -->
+    <script>
+			const form = document.getElementById('signupForm')
+			form.addEventListener('submit', registerUser)
+
+			async function registerUser(event) {
+				event.preventDefault()
+				const username = document.getElementById('username').value
+				const password = document.getElementById('password').value
+        
+				const result = await fetch('/api/register', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						username,
+						password
+					})
+				}).then((res) => res.json())
+
+				if (result.status === 'ok') {
+					// everything went fine
+          window.location.href = "./Welcome_Page.html"
+				} else {
+					alert(result.error)
+				}
+			}
+		</script>
+  </body>
+</html>

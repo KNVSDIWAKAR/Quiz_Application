@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Page</title>
+    <style>
+      /* Dark mode styles */
+      body {
+        background-color: #121212;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url("background.png");
+      }
+
+      header {
+        position: relative;
+        background-color: #5953ce; /* Change header background color */
+        padding: 50px;
+        text-align: center;
+        transition: background-color 0.3s; /* Add transition for background color */
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 24px;
+      }
+
+      #quizContent {
+        padding: 20px;
+      }
+
+      #quizCodeContainer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: calc(
+          100vh - 170px
+        ); /* Adjusted to accommodate header and footer */
+      }
+
+      #quizCodeSection {
+        text-align: center;
+        margin-top: -10px; /* Adjusted to move the section slightly upwards */
+      }
+
+      #startQuizBtn,
+      #returnHomeBtn {
+        font-size: 18px;
+        padding: 15px 30px;
+        background-color: #007bff; /* Blue button color */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s; /* Add transition for background color and transform */
+        margin-top: 15px;
+      }
+
+      #startQuizBtn:hover,
+      #returnHomeBtn:hover {
+        background-color: #0056b3; /* Darker blue on hover */
+        transform: translateY(-2px); /* Add slight upward movement on hover */
+      }
+
+      #returnHomeBtn {
+        font-size: 16px; /* Increase button font size */
+        padding: 15px 30px; /* Increase button padding */
+        margin-top: 10px; /* Add margin to space it below the Start Quiz button */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Quiz Page</h1>
+      </header>
+
+      <div id="quizContent">
+        <div id="quizCodeContainer">
+          <div id="quizCodeSection">
+            <!-- Removed the input for entering quiz code -->
+            <button id="startQuizBtn">Start Quiz</button>
+            <button id="returnHomeBtn">Return to Home Page</button>
+            <!-- Moved the return button to the same container as Start Quiz -->
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <!-- No longer needed here -->
+      </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#startQuizBtn").click(function () {
+          window.location.href = "instructions.html"; // Redirect to instructions page
+        });
+
+        $("#returnHomeBtn").click(function () {
+          window.location.href = "index.html"; // Redirect to home page
+        });
+
+        // Toggle dark mode (if needed)
+        $("#darkModeToggle").change(function () {
+          $("body").toggleClass("dark-mode", $(this).is(":checked"));
+        });
+      });
+    </script>
+  </body>
+</html>
